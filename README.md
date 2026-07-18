@@ -12,15 +12,18 @@ Or open `index.html` locally.
 
 ## What’s inside
 
-Three layout options (switch in the top bar):
+Four layout options (switch in the top bar):
 
 | Option | Name | Role |
 |---|---|---|
-| **A** | Editorial Bento | **Recommended** — native ratios, paced bands |
+| **A** | Editorial Bento | **Recommended desktop** — native ratios, paced bands |
 | **B** | Masonry | Fast density, weaker narrative |
 | **C** | Runway | Luxury strips; better with fewer shots |
+| **M** | Mobile product scroll | **Recommended phone** — full-bleed / inset / 2-up / horizontal detail rail |
 
-Use **Toggle band labels** on Layout A to see the structure.
+Direct mobile view: https://malbrizio.github.io/ff-ourwork-layout/?view=m
+
+Use **Toggle band labels** on Layout A to see the structure. On **M**, scroll inside the phone frame (desktop) or full-screen (real phone).
 
 ## Feedback asks
 

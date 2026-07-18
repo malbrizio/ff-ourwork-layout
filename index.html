@@ -50,7 +50,9 @@
 
   /* —— section —— */
   .ff-ow{padding:72px 0 96px}
+  body.view-m .ff-ow{padding:0 0 48px}
   .ff-ow__header{max-width:720px;margin:0 auto 48px;text-align:center}
+  body.view-m .ff-ow__header-desktop{display:none}
   .ff-ow__eyebrow{
     font:600 11px/1 Montserrat;letter-spacing:.16em;text-transform:uppercase;
     color:var(--muted);margin-bottom:14px;
@@ -120,7 +122,7 @@
 
   /* band labels (design-mode only) */
   .band-label{
-    display:none; /* toggled via body.show-labels */
+    display:none;
     font:700 10px/1 Montserrat;letter-spacing:.14em;text-transform:uppercase;
     color:var(--muted);margin:18px 0 8px;
   }
@@ -137,7 +139,6 @@
     height:auto;aspect-ratio:auto;
   }
   .layout-b .tile img{height:auto;object-fit:contain;width:100%}
-  .layout-b .tile.span-tall img{/* natural */ }
 
   /* =========================================================
      LAYOUT C — RUNWAY STRIPS (alt)
@@ -154,9 +155,146 @@
   .layout-c .strip-tri{grid-template-columns:repeat(3,1fr)}
   .layout-c .strip-tri .tile{aspect-ratio:3/4;height:auto}
 
+  /* =========================================================
+     LAYOUT M — MOBILE PRODUCT SCROLL (dedicated concept)
+     Shown inside a phone frame on desktop so you can review
+     without resizing the browser.
+     ========================================================= */
+  .layout-m{
+    background:#1a1a1a;
+    padding:40px 16px 64px;
+  }
+  .layout-m .m-intro{
+    max-width:390px;margin:0 auto 22px;text-align:center;color:rgba(242,237,228,.75);
+    font:400 13px/1.55 Montserrat;
+  }
+  .layout-m .m-intro strong{color:var(--lime);font-weight:700}
+  .phone{
+    width:min(390px,100%);
+    margin:0 auto;
+    background:var(--bone);
+    border:10px solid #0b0b0b;
+    border-radius:36px;
+    box-shadow:
+      0 0 0 1px #333,
+      0 30px 80px rgba(0,0,0,.45);
+    overflow:hidden;
+    position:relative;
+  }
+  .phone__notch{
+    position:absolute;top:8px;left:50%;transform:translateX(-50%);
+    width:110px;height:28px;background:#0b0b0b;border-radius:20px;z-index:5;
+  }
+  .phone__screen{
+    height:min(780px,82vh);
+    overflow-y:auto;
+    overflow-x:hidden;
+    -webkit-overflow-scrolling:touch;
+    scroll-behavior:smooth;
+  }
+  .phone__screen::-webkit-scrollbar{width:0}
+  .m-status{
+    height:44px;display:flex;align-items:flex-end;justify-content:space-between;
+    padding:0 22px 6px;font:600 11px Montserrat;color:var(--ink);
+  }
+  .m-header{
+    padding:8px 20px 22px;text-align:center;
+  }
+  .m-header .ff-ow__title{font-size:42px;margin-bottom:10px}
+  .m-header .ff-ow__sub{font-size:13px;line-height:1.55;max-width:none}
+
+  /* mobile rhythm blocks */
+  .m-block{margin-bottom:8px}
+  .m-block .tile{border-radius:0}
+  .m-block .tile .cap{
+    opacity:1;transform:none;
+    padding:36px 14px 12px;
+    font-size:9px;letter-spacing:.12em;
+  }
+  .m-block .tile:hover img{transform:none}
+
+  /* 1) Full-bleed hero */
+  .m-hero .tile{aspect-ratio:3/4;height:auto}
+
+  /* 2) Inset quiet card */
+  .m-inset{padding:0 18px;margin-bottom:14px}
+  .m-inset .tile{border-radius:6px;aspect-ratio:4/5;height:auto}
+  .m-inset .tile .cap{
+    background:linear-gradient(transparent,rgba(0,0,0,.62));
+  }
+
+  /* 3) 2-up pair */
+  .m-pair{
+    display:grid;grid-template-columns:1fr 1fr;gap:6px;
+    padding:0 6px;margin-bottom:14px;
+  }
+  .m-pair .tile{aspect-ratio:3/4;height:auto;border-radius:4px}
+  .m-pair .tile .cap{padding:24px 8px 8px;font-size:8px}
+
+  /* 4) Horizontal snap strip — the key differentiator */
+  .m-rail-label{
+    font:700 10px/1 Montserrat;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);padding:10px 18px 8px;
+  }
+  .m-rail{
+    display:flex;gap:8px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    padding:0 18px 16px;
+    margin-bottom:8px;
+  }
+  .m-rail::-webkit-scrollbar{height:0}
+  .m-rail .tile{
+    flex:0 0 78%;
+    aspect-ratio:5/4;
+    height:auto;
+    border-radius:6px;
+    scroll-snap-align:center;
+  }
+
+  /* 5) Full-bleed color */
+  .m-bleed .tile{aspect-ratio:1/1;height:auto}
+
+  /* 6) Alternating: full then inset */
+  .m-stack .tile{aspect-ratio:4/5;height:auto;margin-bottom:8px}
+  .m-stack .is-inset{padding:0 18px}
+  .m-stack .is-inset .tile{border-radius:6px;margin-bottom:14px}
+
+  /* 7) Close craft + CTA */
+  .m-close{padding:8px 18px 0}
+  .m-close .tile{border-radius:6px;aspect-ratio:5/4;height:auto}
+  .m-cta{
+    padding:28px 22px 40px;text-align:center;
+  }
+  .m-cta p{font:400 13.5px/1.55 Montserrat;color:var(--soft);margin-bottom:16px}
+  .m-cta .btn{width:100%;padding:15px 18px;font-size:12px}
+
+  .m-hint{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    padding:6px 0 2px;color:var(--muted);
+    font:600 9px/1 Montserrat;letter-spacing:.12em;text-transform:uppercase;
+  }
+  .m-hint span{
+    display:inline-block;width:28px;height:3px;border-radius:2px;background:var(--line);
+  }
+
+  /* phone annotation (desktop only) */
+  .m-callouts{
+    max-width:390px;margin:28px auto 0;
+    color:rgba(242,237,228,.8);font:400 13px/1.6 Montserrat;
+  }
+  .m-callouts h3{
+    font:700 11px/1 Montserrat;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--lime);margin:0 0 12px;
+  }
+  .m-callouts ol{padding-left:18px}
+  .m-callouts li{margin:8px 0}
+
   /* views */
   .layout{display:none}
   .layout.is-active{display:block}
+  body.view-m .cta-desktop{display:none}
 
   /* CTA */
   .ff-ow__cta{
@@ -167,7 +305,7 @@
   .btn{
     display:inline-block;background:var(--ink);color:var(--bone);
     font:700 13px/1 Montserrat;letter-spacing:.08em;text-transform:uppercase;
-    padding:16px 28px;border-radius:2px;text-decoration:none;
+    padding:16px 28px;border-radius:2px;text-decoration:none;border:0;cursor:pointer;
   }
   .btn:hover{background:var(--lime);color:var(--ink)}
 
@@ -213,6 +351,17 @@
     .layout-a .band-bento > .tile,
     .layout-a .band-color > .tile,
     .layout-a .band-2 > .tile{aspect-ratio:4/5;height:auto;min-height:0}
+
+    /* On real phones: drop chrome frame, use full viewport */
+    .layout-m{background:var(--bone);padding:0}
+    .layout-m .m-intro,
+    .layout-m .m-callouts,
+    .phone__notch,
+    .m-status{display:none}
+    .phone{
+      width:100%;border:0;border-radius:0;box-shadow:none;background:var(--bone);
+    }
+    .phone__screen{height:auto;overflow:visible}
   }
   @media (max-width:560px){
     .layout-a .band-3,
@@ -220,6 +369,7 @@
     .layout-a .band-3 .tile:last-child{grid-column:auto}
     .layout-b .masonry{column-count:1}
     .ff-ow{padding:48px 0 64px}
+    body.view-m .ff-ow{padding:0 0 24px}
   }
 </style>
 </head>
@@ -231,6 +381,7 @@
     <button type="button" class="active" data-layout="a">A · Editorial Bento ★</button>
     <button type="button" data-layout="b">B · Masonry</button>
     <button type="button" data-layout="c">C · Runway</button>
+    <button type="button" data-layout="m">M · Mobile</button>
     <button type="button" data-toggle-labels>Toggle band labels</button>
   </div>
   <a href="#notes">Read the rationale ↓</a>
@@ -238,7 +389,7 @@
 
 <section class="ff-ow">
   <div class="wrap">
-    <header class="ff-ow__header">
+    <header class="ff-ow__header ff-ow__header-desktop">
       <p class="ff-ow__eyebrow">Portfolio</p>
       <h1 class="ff-ow__title">Our Work</h1>
       <p class="ff-ow__sub">Real print on real fabric. Close-ups of custom gym apparel — ink, type, and texture from 5,000+ gyms and 30,000+ orders.</p>
@@ -352,7 +503,144 @@
     </div>
   </div>
 
-  <div class="wrap">
+  <!-- ==================== M: MOBILE PRODUCT SCROLL ==================== -->
+  <div class="layout layout-m" id="layout-m">
+    <p class="m-intro">
+      <strong>Mobile concept</strong> — not a collapsed desktop grid.
+      Scroll inside the phone. Swipe the mid-page detail rail sideways.
+    </p>
+
+    <div class="phone">
+      <div class="phone__notch" aria-hidden="true"></div>
+      <div class="phone__screen" id="phone-screen">
+        <div class="m-status"><span>9:41</span><span>●●●</span></div>
+
+        <header class="m-header">
+          <p class="ff-ow__eyebrow">Portfolio</p>
+          <h1 class="ff-ow__title">Our Work</h1>
+          <p class="ff-ow__sub">Real print on real fabric — ink, type, and texture from 5,000+ gyms.</p>
+        </header>
+
+        <!-- 1 Full-bleed opener -->
+        <div class="m-block m-hero">
+          <button class="tile" data-full="15.jpg">
+            <img src="15.jpg" alt="St. Louis skyline print">
+            <span class="cap">Location identity · St. Louis</span>
+          </button>
+        </div>
+
+        <!-- 2 Quiet inset (breathing room) -->
+        <div class="m-block m-inset">
+          <button class="tile" data-full="10.jpg">
+            <img src="10.jpg" alt="Minimal left chest">
+            <span class="cap">Minimal left chest</span>
+          </button>
+        </div>
+
+        <!-- 3 Two-up pair -->
+        <div class="m-pair">
+          <button class="tile" data-full="01.jpg">
+            <img src="01.jpg" alt="Raglan crest">
+            <span class="cap">Raglan · crest</span>
+          </button>
+          <button class="tile" data-full="03.jpg">
+            <img src="03.jpg" alt="Collegiate mark">
+            <span class="cap">Collegiate mark</span>
+          </button>
+        </div>
+
+        <!-- 4 Horizontal snap rail — detail crops -->
+        <p class="m-rail-label">Print detail</p>
+        <p class="m-hint"><span></span> swipe <span></span></p>
+        <div class="m-rail" aria-label="Horizontal detail gallery">
+          <button class="tile" data-full="04.jpg">
+            <img src="04.jpg" alt="Script wordmark">
+            <span class="cap">Script wordmark</span>
+          </button>
+          <button class="tile" data-full="05.jpg">
+            <img src="05.jpg" alt="Full back print">
+            <span class="cap">Full back print</span>
+          </button>
+          <button class="tile" data-full="07.jpg">
+            <img src="07.jpg" alt="Hoodie embroidery">
+            <span class="cap">Embroidery · hoodie</span>
+          </button>
+          <button class="tile" data-full="14.jpg">
+            <img src="14.jpg" alt="UDBC embroidery">
+            <span class="cap">Embroidery close-up</span>
+          </button>
+        </div>
+
+        <!-- 5 Full-bleed color break -->
+        <div class="m-block m-bleed">
+          <button class="tile" data-full="09.jpg">
+            <img src="09.jpg" alt="Blue tank">
+            <span class="cap">Color + circular mark</span>
+          </button>
+        </div>
+
+        <!-- 6 Alternating full / inset -->
+        <div class="m-stack">
+          <button class="tile" data-full="13.jpg">
+            <img src="13.jpg" alt="Purple halftone">
+            <span class="cap">Halftone texture</span>
+          </button>
+          <div class="is-inset">
+            <button class="tile" data-full="06.jpg">
+              <img src="06.jpg" alt="Do The Hard Thing">
+              <span class="cap">Illustrated type · Indiana</span>
+            </button>
+          </div>
+          <button class="tile" data-full="11.jpg">
+            <img src="11.jpg" alt="Stay Strong">
+            <span class="cap">Brush type</span>
+          </button>
+          <div class="is-inset">
+            <button class="tile" data-full="02.jpg">
+              <img src="02.jpg" alt="Lift Local">
+              <span class="cap">Lift Local series</span>
+            </button>
+          </div>
+          <button class="tile" data-full="12.jpg">
+            <img src="12.jpg" alt="Bubble type">
+            <span class="cap">Back print · bubble type</span>
+          </button>
+          <div class="is-inset">
+            <button class="tile" data-full="08.jpg">
+              <img src="08.jpg" alt="FF badge">
+              <span class="cap">Brand mark · back print</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 7 Close + CTA -->
+        <div class="m-close">
+          <button class="tile" data-full="14.jpg">
+            <img src="14.jpg" alt="Craft close-up">
+            <span class="cap">Craft close-up · embroidery</span>
+          </button>
+        </div>
+        <div class="m-cta">
+          <p>Every project starts with your brand, your vision, your community.</p>
+          <a class="btn" href="https://link.webvehicle.com/widget/form/qNgfulV3tUWZ70qJvAN6">Schedule a call</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="m-callouts">
+      <h3>What mobile does differently</h3>
+      <ol>
+        <li><strong>Full-bleed hero</strong> — opens edge-to-edge, no side gutters.</li>
+        <li><strong>Inset quiet card</strong> — pulls in for breathing room after the hero.</li>
+        <li><strong>2-up pair</strong> — density without a uniform grid of 15.</li>
+        <li><strong>Horizontal detail rail</strong> — landscape close-ups swipe sideways (the big differentiator vs A/B/C collapsed).</li>
+        <li><strong>Captions always on</strong> — no hover on phones.</li>
+        <li><strong>Alternating full / inset</strong> — vertical rhythm so long scroll doesn’t flatline.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="wrap cta-desktop">
     <div class="ff-ow__cta">
       <p>Don't see exactly what you're looking for? Good. Every project starts with your brand, your vision, your community.</p>
       <a class="btn" href="https://link.webvehicle.com/widget/form/qNgfulV3tUWZ70qJvAN6">Schedule a call</a>
@@ -364,8 +652,8 @@
   <h2>Layout rationale</h2>
 
   <div class="rec">
-    <strong>Recommendation: Layout A — Editorial Bento.</strong>
-    These shots are product close-ups with intentional framing (not lifestyle full-body, not square mockups). A uniform grid crops the craft out of half of them. Editorial bands let each aspect ratio work and create a page that feels curated, not tiled.
+    <strong>Recommendation: Layout A on desktop + Layout M on phone.</strong>
+    Same photo set and story order. Desktop uses editorial bento bands. Mobile is its own product-scroll system — not a collapsed 3-column grid.
   </div>
 
   <h3>What the photos actually are</h3>
@@ -376,55 +664,36 @@
     <li>Current /ourwork grid forces square mockups. These new heroes fight that container.</li>
   </ul>
 
-  <h3>Why A wins</h3>
+  <h3>Why A wins (desktop)</h3>
   <ul>
     <li><strong>Native ratios preserved.</strong> Portrait triptychs hold 3:4; landscape band holds the 1.1 crops; no dead letterboxing.</li>
-    <li><strong>Rhythm.</strong> Big → three → three detail → color pair → bento → craft close. Eyes don’t go flat.</li>
-    <li><strong>Color pacing.</strong> Neutrals open, color breaks mid-page (blue tank / purple USC / Indiana illustration / St. Louis pink), embroidery closes on craft proof.</li>
-    <li><strong>Busy vs quiet.</strong> Full graphic prints alternate with left-chest minimal and embroidery so the page breathes.</li>
-    <li><strong>Mobile.</strong> Bands collapse to single column (or 2-up for triptychs) without re-authoring the sequence.</li>
+    <li><strong>Rhythm.</strong> Big → three → three detail → color pair → bento → craft close.</li>
+    <li><strong>Color pacing.</strong> Neutrals open, color breaks mid-page, embroidery closes on craft proof.</li>
   </ul>
 
-  <h3>Why not B or C as primary</h3>
+  <h3>Why M exists (mobile)</h3>
   <ul>
-    <li><strong>B Masonry</strong> — fastest to build, respects natural height, but feels like a dump of photos. Weak narrative control; uneven column bottoms; harder captions. Keep as a fallback if you want “more shots later” density.</li>
-    <li><strong>C Runway</strong> — luxury look, lots of air. Needs more vertical scroll for 15 shots and can feel sparse on desktop. Better if you cut to 8–10 hero pieces.</li>
+    <li>A/B/C all collapse to the same single-column stack on a phone — correct as a fallback, weak as a concept.</li>
+    <li>M keeps a deliberate rhythm: full-bleed → inset → 2-up → <em>horizontal detail rail</em> → color bleed → alternating stack.</li>
+    <li>Landscape detail shots belong in a sideways rail on mobile; stacking them wastes their width.</li>
+    <li>Captions are always visible (hover is dead on touch).</li>
   </ul>
 
   <h3>Hard layout rules for production</h3>
   <ul>
-    <li>Gap: <code>8–12px</code> (I used 10). Tight = editorial catalog, not Pinterest collage.</li>
-    <li>Corner radius: <code>2–4px</code> max — or 0. These are streetwear-product, not soft SaaS cards.</li>
-    <li><code>object-fit: cover</code> only inside a frame that matches the shot’s native ratio. Never cover-crop a 3:4 into a square.</li>
-    <li>Hover: subtle scale (~1.04) + optional caption. No heavy overlays that hide the print.</li>
-    <li>Lightbox on click (you already have this pattern on /ourwork).</li>
-    <li>Background: bone <code>#F2EDE4</code> or pure white. Dark ink page also works if the whole section goes dark — don’t mix mid-gray.</li>
-    <li>Optional captions: garment / print type only (“Embroidery · hoodie”), not long marketing blurbs.</li>
-  </ul>
-
-  <h3>Suggested final sequence (A)</h3>
-  <ul>
-    <li><strong>Open:</strong> 15 (St. Louis pink, emotional) + 10 (quiet left chest) + 08 (FF badge)</li>
-    <li><strong>Triptych:</strong> 01, 03, 11 — classic chest graphics</li>
-    <li><strong>Detail strip:</strong> 04, 05, 07 — landscapes / embroidery</li>
-    <li><strong>Color:</strong> 09 + 13</li>
-    <li><strong>Bento:</strong> 06 large + 02 + 12</li>
-    <li><strong>Close:</strong> 14 embroidery craft shot, centered, slightly restrained width</li>
+    <li>Gap desktop: <code>8–12px</code>. Mobile pair gap: <code>6px</code>. Inset side padding: <code>~18px</code>.</li>
+    <li>Corner radius: <code>0</code> on full-bleed, <code>4–6px</code> on inset cards.</li>
+    <li>Never cover-crop a 3:4 into a square.</li>
+    <li>Lightbox on tap (same as current /ourwork).</li>
+    <li>Detail rail: <code>scroll-snap-type: x mandatory</code>, cards ~78% width so the next peeks.</li>
   </ul>
 
   <h3>What I would not do</h3>
   <ul>
     <li>Equal square grid (kills half the compositions).</li>
-    <li>Infinite masonry with 40 more mockups mixed in — separate “Templates” from “Hero craft” if both live on the page.</li>
-    <li>Heavy text blocks between every band — one header, one closing CTA is enough.</li>
-    <li>Carousel / slider — these deserve simultaneous comparison and scroll-owned pacing.</li>
-  </ul>
-
-  <h3>If this becomes a full /ourwork rebuild</h3>
-  <ul>
-    <li>Section 1: this hero craft gallery (the 15).</li>
-    <li>Section 2: existing square mockup library (templates / garment range) in a denser 3–4 col grid below, under a second eyebrow (“More from the archive”).</li>
-    <li>Keep the stats strip if you still want social proof — park it between header and Band 1, or between craft gallery and archive.</li>
+    <li>Same mobile layout as collapsed desktop — ship M as the mobile stylesheet for A.</li>
+    <li>Heavy text between every block — one header, one closing CTA.</li>
+    <li>Autoplay carousels — user-owned swipe only.</li>
   </ul>
 </article>
 
@@ -434,35 +703,47 @@
 </div>
 
 <script>
-  // layout switcher
   const buttons = document.querySelectorAll('[data-layout]');
   const layouts = document.querySelectorAll('.layout');
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      layouts.forEach(l => l.classList.toggle('is-active', l.id === 'layout-' + btn.dataset.layout));
+      const id = btn.dataset.layout;
+      layouts.forEach(l => l.classList.toggle('is-active', l.id === 'layout-' + id));
+      document.body.classList.toggle('view-m', id === 'm');
       window.scrollTo({top: 0, behavior: 'smooth'});
+      if (id === 'm') {
+        const screen = document.getElementById('phone-screen');
+        if (screen) screen.scrollTop = 0;
+      }
     });
   });
   document.querySelector('[data-toggle-labels]').addEventListener('click', () => {
     document.body.classList.toggle('show-labels');
   });
 
-  // lightbox
+  // lightbox (event delegation so phone tiles work too)
   const lb = document.getElementById('lb');
   const lbImg = lb.querySelector('img');
-  document.querySelectorAll('.tile[data-full]').forEach(tile => {
-    tile.addEventListener('click', () => {
-      lbImg.src = tile.dataset.full;
-      lb.hidden = false;
-      lb.classList.add('open');
-    });
+  document.addEventListener('click', (e) => {
+    const tile = e.target.closest('.tile[data-full]');
+    if (!tile) return;
+    e.preventDefault();
+    lbImg.src = tile.dataset.full;
+    lb.hidden = false;
+    lb.classList.add('open');
   });
   function closeLb(){ lb.classList.remove('open'); lb.hidden = true; lbImg.src = ''; }
   lb.addEventListener('click', closeLb);
   lb.querySelector('button').addEventListener('click', e => { e.stopPropagation(); closeLb(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+  // deep-link ?view=m
+  const params = new URLSearchParams(location.search);
+  if (params.get('view') === 'm') {
+    document.querySelector('[data-layout="m"]').click();
+  }
 </script>
 </body>
 </html>
