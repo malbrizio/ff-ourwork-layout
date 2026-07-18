@@ -35,5 +35,5 @@ Use **Toggle band labels** on Layout A to see the structure. On **M**, scroll in
 ## Notes
 
 - Preview images are compressed for the mockup only (fulls stay in Drive).
-- Design system: FF bone / ink / lime, Montserrat + Instrument Serif.
+- Design system: FF bone / ink / lime, Montserrat only.
 - Rationale is at the bottom of the page.
