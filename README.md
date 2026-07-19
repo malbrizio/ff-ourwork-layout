@@ -34,6 +34,9 @@ Use **Toggle band labels** on Layout A to see the structure. On **M**, scroll in
 
 ## Notes
 
-- Preview images are compressed for the mockup only (fulls stay in Drive).
+- **Production-weight images** (not the old 400px previews):
+  - `tiles/` — ~native–1600px long edge, WebP + JPEG, ~150–250 KB target (avg ~207 KB WebP)
+  - `full/` — lightbox masters ~native–2200px, WebP + JPEG, ~250–450 KB target
+  - Mockup serves WebP; JPEG kept as CDN/fallback masters
 - Design system: FF bone / ink / lime, Montserrat only.
 - Rationale is at the bottom of the page.
