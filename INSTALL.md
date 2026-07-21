@@ -17,49 +17,37 @@ Reference mockup: https://malbrizio.github.io/ff-ourwork-layout/
 
 ---
 
-## What you need to do
+## Status
 
-### 1) Upload the 15 heroes to Shopify Files
+- [x] Theme code on **live** theme `Concept 6.0 MERGED` (`#144855269443`)
+- [x] Images uploaded to Shopify Content / Files (Matt)
+- [ ] Wire 15 Hero shot blocks + new copy in theme editor (you)
+- [ ] Optional: SEO title/description on the page
 
-Source (production weight already exported):
+---
 
-- Tiles: `/Users/matt/ff-ourwork-layout/tiles/01.jpg` … `15.jpg` (or `.webp`)
-- Prefer **full/** masters for upload — Shopify resizes via CDN  
-  `/Users/matt/ff-ourwork-layout/full/01.jpg` … `15.jpg`
+## What you need to do (to finish going live)
 
-**Shopify Admin → Content → Files → Upload**
+Code is already on the live theme. The page still shows the **old block config** until you rewire it in the editor.
 
-Suggested filenames:
-`FF_OurWork_Hero_01.jpg` … `FF_OurWork_Hero_15.jpg`
+### 1) Open the live theme editor on Our Work
 
-### 2) Push theme code (unpublished first — recommended)
+https://foreverfierce.myshopify.com/admin/themes/144855269443/editor?template=page.our-work
 
-From the theme directory:
+(If that deep link fails: **Online Store → Themes → Customize** on the live theme → open **Our Work** page from the top page picker.)
 
-```bash
-cd /Users/matt/shopify-themes/live-current
+### 2) Update section copy
 
-# Push ONLY these two files to an unpublished theme (pick ID from theme list)
-shopify theme push \
-  --store foreverfierce.myshopify.com \
-  --theme <UNPUBLISHED_THEME_ID> \
-  --only sections/our-work-gallery.liquid \
-  --only snippets/our-work-tile.liquid
-```
+In **Our Work Gallery** settings:
 
-Preview that theme’s Our Work page before touching live.
-
-**Live theme is `Concept 6.0 MERGED`.** Do not push to live until preview looks right.
-
-To push live when ready:
-
-```bash
-shopify theme push \
-  --store foreverfierce.myshopify.com \
-  --theme 144855269443 \
-  --only sections/our-work-gallery.liquid \
-  --only snippets/our-work-tile.liquid
-```
+| Setting | Value |
+|---|---|
+| Eyebrow | Custom gym apparel |
+| Title | Our Work |
+| Subheading | Design examples up close — ink, type, and embroidery quality you can judge before you commit. |
+| Closing | Every drop is built around your gym. Free design. Members preorder. You don’t buy inventory. |
+| CTA text | Schedule a call |
+| CTA link | GHL form (existing) |
 
 ### 3) Wire blocks on the Our Work page
 
