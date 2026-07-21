@@ -1,0 +1,29 @@
+{%- comment -%}
+  Tile from theme asset (new hero set).
+  Params: asset, alt, caption, shot_id, class, sizes, loading, show_cap
+{%- endcomment -%}
+{%- liquid
+  assign load = loading | default: 'lazy'
+  assign sizes_attr = sizes | default: '(max-width: 900px) 100vw, 33vw'
+  assign tile_class = class | default: 'ff-ow__tile'
+  assign img_url = asset | asset_url
+-%}
+<button
+  type="button"
+  class="{{ tile_class }}"
+  data-lightbox-trigger
+  data-shot-id="{{ shot_id | escape }}"
+  data-full="{{ img_url }}"
+  data-caption="{{ caption | escape }}"
+  aria-label="Expand image: {{ alt | escape }}">
+  <img
+    src="{{ img_url }}"
+    alt="{{ alt | escape }}"
+    loading="{{ load }}"
+    width="1600"
+    height="1600"
+    sizes="{{ sizes_attr }}">
+  {%- if caption != blank -%}
+    <span class="ff-ow__cap{% if show_cap %} ff-ow__cap--always{% endif %}">{{ caption | escape }}</span>
+  {%- endif -%}
+</button>

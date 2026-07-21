@@ -1,0 +1,33 @@
+/*
+ * ------------------------------------------------------------
+ * Our Work — Layout A (desktop) + Layout M (mobile)
+ * Heroes are theme assets (ff-ow-hero-01…15.jpg), not old mockups.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "our-work-gallery",
+      "settings": {
+        "eyebrow": "Custom gym apparel",
+        "title": "Our Work",
+        "subheading": "Design examples up close — ink, type, and embroidery quality you can judge before you commit.",
+        "show_stats": true,
+        "stat_1_number": "30,000+",
+        "stat_1_label": "Orders",
+        "stat_2_number": "1.8M",
+        "stat_2_label": "Shirts printed",
+        "stat_3_number": "5,000+",
+        "stat_3_label": "Gyms",
+        "stat_4_number": "50",
+        "stat_4_label": "States",
+        "closing_text": "Every drop is built around your gym. Free design. Members preorder. You don’t buy inventory.",
+        "cta_text": "Schedule a call",
+        "cta_link": "https://link.webvehicle.com/widget/form/qNgfulV3tUWZ70qJvAN6"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

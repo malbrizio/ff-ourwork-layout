@@ -1,28 +1,31 @@
 {%- comment -%}
   ========================================
   Our Work Gallery — Forever Fierce
-  Layout A (Editorial Bento) + Mobile M
+  NEW layout only: Layout A (desktop) + Layout M (mobile)
+  15 design-example heroes from theme assets.
   ========================================
 {%- endcomment -%}
 
-{%- liquid
-  assign has_heroes = false
-  for block in section.blocks
-    if block.type == 'hero_shot' and block.settings.image != blank
-      assign has_heroes = true
-      break
-    endif
-  endfor
-  assign has_archive = false
-  for block in section.blocks
-    if block.type == 'product_mockup' or block.type == 'lifestyle_shot'
-      if block.settings.image != blank
-        assign has_archive = true
-        break
-      endif
-    endif
-  endfor
--%}
+{%- comment -%} Fixed 15-shot set: asset | role | caption | alt {%- endcomment -%}
+{%- capture hero_map -%}
+ff-ow-hero-15.jpg|open_feature|Location identity · St. Louis|Design example: location skyline print in pink and black
+ff-ow-hero-10.jpg|open_stack|Minimal left chest|Design example: minimal left-chest print on mineral wash tee
+ff-ow-hero-08.jpg|open_stack|Brand mark · back print|Design example: circular brand mark back print on black tee
+ff-ow-hero-01.jpg|triptych|Raglan · crest|Design example: crest print on white and black raglan
+ff-ow-hero-03.jpg|triptych|Collegiate mark|Design example: collegiate mark on navy tee
+ff-ow-hero-11.jpg|triptych|Brush type|Design example: brush type chest print on grey tee
+ff-ow-hero-04.jpg|detail|Script wordmark|Design example: script wordmark on heather raglan
+ff-ow-hero-05.jpg|detail|Full back print|Design example: full back badge print on white tee
+ff-ow-hero-07.jpg|detail|Embroidery · hoodie|Design example: hoodie embroidery close-up
+ff-ow-hero-09.jpg|color|Color + circular mark|Design example: circular mark on blue muscle tank
+ff-ow-hero-13.jpg|color|Halftone texture|Design example: purple halftone type on lavender tee
+ff-ow-hero-06.jpg|bento_feature|Illustrated type · Indiana|Design example: illustrated type print on mineral wash tee
+ff-ow-hero-02.jpg|bento_stack|Lift Local series|Design example: Lift Local series chest print
+ff-ow-hero-12.jpg|bento_stack|Back print · bubble type|Design example: bubble type back print on black tee
+ff-ow-hero-14.jpg|close|Craft close-up · embroidery|Design example: embroidery craft close-up
+{%- endcapture -%}
+{%- assign hero_lines = hero_map | strip | split: '
+' -%}
 
 <section class="ff-ow" data-section-id="{{ section.id }}">
 
@@ -40,222 +43,215 @@
   </header>
   {%- endif -%}
 
-  {%- comment -%} ---- Optional stats (desktop + mobile) ---- {%- endcomment -%}
-  {%- for block in section.blocks -%}
-    {%- if block.type == 'stats_strip' -%}
-      <div class="ff-ow__stats" {{ block.shopify_attributes }}>
-        {%- if block.settings.stat_1_number != blank -%}
-          <div class="ff-ow__stat">
-            <span class="ff-ow__stat-num">{{ block.settings.stat_1_number | escape }}</span>
-            <span class="ff-ow__stat-label">{{ block.settings.stat_1_label | escape }}</span>
-          </div>
-        {%- endif -%}
-        {%- if block.settings.stat_2_number != blank -%}
-          <div class="ff-ow__stat">
-            <span class="ff-ow__stat-num">{{ block.settings.stat_2_number | escape }}</span>
-            <span class="ff-ow__stat-label">{{ block.settings.stat_2_label | escape }}</span>
-          </div>
-        {%- endif -%}
-        {%- if block.settings.stat_3_number != blank -%}
-          <div class="ff-ow__stat">
-            <span class="ff-ow__stat-num">{{ block.settings.stat_3_number | escape }}</span>
-            <span class="ff-ow__stat-label">{{ block.settings.stat_3_label | escape }}</span>
-          </div>
-        {%- endif -%}
-        {%- if block.settings.stat_4_number != blank -%}
-          <div class="ff-ow__stat">
-            <span class="ff-ow__stat-num">{{ block.settings.stat_4_number | escape }}</span>
-            <span class="ff-ow__stat-label">{{ block.settings.stat_4_label | escape }}</span>
-          </div>
-        {%- endif -%}
-      </div>
-    {%- endif -%}
-  {%- endfor -%}
+  {%- if section.settings.show_stats -%}
+  <div class="ff-ow__stats">
+    <div class="ff-ow__stat">
+      <span class="ff-ow__stat-num">{{ section.settings.stat_1_number | escape }}</span>
+      <span class="ff-ow__stat-label">{{ section.settings.stat_1_label | escape }}</span>
+    </div>
+    <div class="ff-ow__stat">
+      <span class="ff-ow__stat-num">{{ section.settings.stat_2_number | escape }}</span>
+      <span class="ff-ow__stat-label">{{ section.settings.stat_2_label | escape }}</span>
+    </div>
+    <div class="ff-ow__stat">
+      <span class="ff-ow__stat-num">{{ section.settings.stat_3_number | escape }}</span>
+      <span class="ff-ow__stat-label">{{ section.settings.stat_3_label | escape }}</span>
+    </div>
+    <div class="ff-ow__stat">
+      <span class="ff-ow__stat-num">{{ section.settings.stat_4_number | escape }}</span>
+      <span class="ff-ow__stat-label">{{ section.settings.stat_4_label | escape }}</span>
+    </div>
+  </div>
+  {%- endif -%}
 
-  {%- if has_heroes -%}
+  {%- comment -%} ========== DESKTOP: Layout A ========== {%- endcomment -%}
+  <div class="ff-ow__desk">
 
-  {%- comment -%} ========== DESKTOP: Layout A Editorial Bento ========== {%- endcomment -%}
-  <div class="ff-ow__desk" aria-hidden="false">
-
-    {%- comment -%} Band 1 — open (1 feature + 2 stack) {%- endcomment -%}
     <div class="ff-ow__band ff-ow__band--open">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'open_feature' and block.settings.image != blank -%}
-          {%- render 'our-work-tile', block: block, class: 'ff-ow__tile ff-ow__tile--feat', sizes: '(max-width: 900px) 100vw, 58vw', loading: 'eager' -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'open_feature' -%}
+          {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile ff-ow__tile--feat', sizes: '(max-width: 900px) 100vw, 58vw', loading: 'eager' -%}
         {%- endif -%}
       {%- endfor -%}
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'open_stack' and block.settings.image != blank -%}
-          {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '(max-width: 900px) 100vw, 38vw', loading: 'eager' -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'open_stack' -%}
+          {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '(max-width: 900px) 100vw, 38vw', loading: 'eager' -%}
         {%- endif -%}
       {%- endfor -%}
     </div>
 
-    {%- comment -%} Band 2 — portrait triptych {%- endcomment -%}
     <div class="ff-ow__band ff-ow__band--3 ff-ow__band--portrait">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'triptych' and block.settings.image != blank -%}
-          {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '(max-width: 900px) 50vw, 33vw' -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'triptych' -%}
+          {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '(max-width: 900px) 50vw, 33vw' -%}
         {%- endif -%}
       {%- endfor -%}
     </div>
 
-    {%- comment -%} Band 3 — detail / landscape strip {%- endcomment -%}
     <div class="ff-ow__band ff-ow__band--3 ff-ow__band--land">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'detail' and block.settings.image != blank -%}
-          {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '(max-width: 900px) 50vw, 33vw' -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'detail' -%}
+          {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '(max-width: 900px) 50vw, 33vw' -%}
         {%- endif -%}
       {%- endfor -%}
     </div>
 
-    {%- comment -%} Band 4 — color pair {%- endcomment -%}
     <div class="ff-ow__band ff-ow__band--color">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'color' and block.settings.image != blank -%}
-          {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '(max-width: 900px) 100vw, 50vw' -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'color' -%}
+          {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '(max-width: 900px) 100vw, 50vw' -%}
         {%- endif -%}
       {%- endfor -%}
     </div>
 
-    {%- comment -%} Band 5 — bento {%- endcomment -%}
     <div class="ff-ow__band ff-ow__band--bento">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'bento_feature' and block.settings.image != blank -%}
-          {%- render 'our-work-tile', block: block, class: 'ff-ow__tile ff-ow__tile--feat', sizes: '(max-width: 900px) 100vw, 55vw' -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'bento_feature' -%}
+          {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile ff-ow__tile--feat', sizes: '(max-width: 900px) 100vw, 55vw' -%}
         {%- endif -%}
       {%- endfor -%}
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'bento_stack' and block.settings.image != blank -%}
-          {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '(max-width: 900px) 100vw, 40vw' -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'bento_stack' -%}
+          {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '(max-width: 900px) 100vw, 40vw' -%}
         {%- endif -%}
       {%- endfor -%}
     </div>
 
-    {%- comment -%} Band 6 — close craft {%- endcomment -%}
     <div class="ff-ow__band ff-ow__band--close">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'close' and block.settings.image != blank -%}
-          {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '(max-width: 900px) 100vw, 720px' -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'close' -%}
+          {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '(max-width: 900px) 100vw, 720px' -%}
         {%- endif -%}
       {%- endfor -%}
     </div>
 
   </div>
 
-  {%- comment -%} ========== MOBILE: Layout M Product Scroll ========== {%- endcomment -%}
-  <div class="ff-ow__mobi" aria-hidden="true">
+  {%- comment -%} ========== MOBILE: Layout M ========== {%- endcomment -%}
+  <div class="ff-ow__mobi">
 
-    {%- comment -%} 1 Full-bleed hero {%- endcomment -%}
     <div class="ff-ow-m__hero">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'open_feature' and block.settings.image != blank -%}
-          {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '100vw', loading: 'eager', show_cap: true -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'open_feature' -%}
+          {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '100vw', loading: 'eager', show_cap: true -%}
         {%- endif -%}
       {%- endfor -%}
     </div>
 
-    {%- comment -%} 2 First open_stack as inset quiet {%- endcomment -%}
     {%- assign inset_done = false -%}
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'hero_shot' and block.settings.role == 'open_stack' and block.settings.image != blank and inset_done == false -%}
+    {%- for line in hero_lines -%}
+      {%- assign p = line | strip | split: '|' -%}
+      {%- if p[1] == 'open_stack' and inset_done == false -%}
         <div class="ff-ow-m__inset">
-          {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '92vw', show_cap: true -%}
+          {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '92vw', show_cap: true -%}
         </div>
         {%- assign inset_done = true -%}
       {%- endif -%}
     {%- endfor -%}
 
-    {%- comment -%} 3 First two triptych as 2-up pair {%- endcomment -%}
     <div class="ff-ow-m__pair">
       {%- assign pair_count = 0 -%}
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'triptych' and block.settings.image != blank and pair_count < 2 -%}
-          {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '48vw', show_cap: true -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'triptych' and pair_count < 2 -%}
+          {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '48vw', show_cap: true -%}
           {%- assign pair_count = pair_count | plus: 1 -%}
         {%- endif -%}
       {%- endfor -%}
     </div>
 
-    {%- comment -%} 4 Horizontal detail rail {%- endcomment -%}
     <p class="ff-ow-m__rail-label">Print detail</p>
     <div class="ff-ow-m__rail" aria-label="Horizontal detail gallery">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'detail' and block.settings.image != blank -%}
-          {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '78vw', show_cap: true -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'detail' -%}
+          {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '78vw', show_cap: true -%}
         {%- endif -%}
       {%- endfor -%}
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'close' and block.settings.image != blank -%}
-          {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '78vw', show_cap: true -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'close' -%}
+          {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '78vw', show_cap: true -%}
         {%- endif -%}
       {%- endfor -%}
     </div>
 
-    {%- comment -%} 5 First color as full-bleed break {%- endcomment -%}
     {%- assign color_i = 0 -%}
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'hero_shot' and block.settings.role == 'color' and block.settings.image != blank -%}
+    {%- for line in hero_lines -%}
+      {%- assign p = line | strip | split: '|' -%}
+      {%- if p[1] == 'color' -%}
         {%- if color_i == 0 -%}
           <div class="ff-ow-m__bleed">
-            {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '100vw', show_cap: true -%}
+            {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '100vw', show_cap: true -%}
           </div>
         {%- endif -%}
         {%- assign color_i = color_i | plus: 1 -%}
       {%- endif -%}
     {%- endfor -%}
 
-    {%- comment -%} 6 Alternating full / inset stack {%- endcomment -%}
     <div class="ff-ow-m__stack">
-      {%- comment -%} remaining color, remaining triptych, bento, remaining open_stack {%- endcomment -%}
       {%- assign color_i = 0 -%}
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'color' and block.settings.image != blank -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'color' -%}
           {%- if color_i > 0 -%}
-            {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '100vw', show_cap: true -%}
+            {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '100vw', show_cap: true -%}
           {%- endif -%}
           {%- assign color_i = color_i | plus: 1 -%}
         {%- endif -%}
       {%- endfor -%}
 
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'bento_feature' and block.settings.image != blank -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'bento_feature' -%}
           <div class="ff-ow-m__inset">
-            {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '92vw', show_cap: true -%}
+            {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '92vw', show_cap: true -%}
           </div>
         {%- endif -%}
       {%- endfor -%}
 
       {%- assign trip_i = 0 -%}
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'triptych' and block.settings.image != blank -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'triptych' -%}
           {%- if trip_i >= 2 -%}
-            {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '100vw', show_cap: true -%}
+            {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '100vw', show_cap: true -%}
           {%- endif -%}
           {%- assign trip_i = trip_i | plus: 1 -%}
         {%- endif -%}
       {%- endfor -%}
 
       {%- assign bento_i = 0 -%}
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'bento_stack' and block.settings.image != blank -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'bento_stack' -%}
           {%- if bento_i == 0 -%}
             <div class="ff-ow-m__inset">
-              {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '92vw', show_cap: true -%}
+              {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '92vw', show_cap: true -%}
             </div>
           {%- else -%}
-            {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '100vw', show_cap: true -%}
+            {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '100vw', show_cap: true -%}
           {%- endif -%}
           {%- assign bento_i = bento_i | plus: 1 -%}
         {%- endif -%}
       {%- endfor -%}
 
       {%- assign open_i = 0 -%}
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'open_stack' and block.settings.image != blank -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'open_stack' -%}
           {%- if open_i > 0 -%}
             <div class="ff-ow-m__inset">
-              {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '92vw', show_cap: true -%}
+              {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '92vw', show_cap: true -%}
             </div>
           {%- endif -%}
           {%- assign open_i = open_i | plus: 1 -%}
@@ -263,39 +259,16 @@
       {%- endfor -%}
     </div>
 
-    {%- comment -%} 7 Close craft {%- endcomment -%}
     <div class="ff-ow-m__close">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'hero_shot' and block.settings.role == 'close' and block.settings.image != blank -%}
-          {%- render 'our-work-tile', block: block, class: 'ff-ow__tile', sizes: '92vw', show_cap: true -%}
+      {%- for line in hero_lines -%}
+        {%- assign p = line | strip | split: '|' -%}
+        {%- if p[1] == 'close' -%}
+          {%- render 'our-work-tile-asset', asset: p[0], caption: p[2], alt: p[3], shot_id: p[0], class: 'ff-ow__tile', sizes: '92vw', show_cap: true -%}
         {%- endif -%}
       {%- endfor -%}
     </div>
 
   </div>
-
-  {%- endif -%}
-
-  {%- comment -%} ---- Optional archive grid (legacy mockups) ---- {%- endcomment -%}
-  {%- if has_archive -%}
-    {%- if section.settings.archive_eyebrow != blank -%}
-      <p class="ff-ow__archive-eyebrow">{{ section.settings.archive_eyebrow | escape }}</p>
-    {%- endif -%}
-    <div class="ff-ow__archive">
-      {%- for block in section.blocks -%}
-        {%- case block.type -%}
-          {%- when 'product_mockup' -%}
-            {%- if block.settings.image != blank -%}
-              {%- render 'our-work-tile', block: block, class: 'ff-ow__tile ff-ow__tile--square', sizes: '(max-width: 768px) 50vw, 33vw' -%}
-            {%- endif -%}
-          {%- when 'lifestyle_shot' -%}
-            {%- if block.settings.image != blank -%}
-              {%- render 'our-work-tile', block: block, class: 'ff-ow__tile ff-ow__tile--wide', sizes: '(max-width: 768px) 100vw, 66vw' -%}
-            {%- endif -%}
-        {%- endcase -%}
-      {%- endfor -%}
-    </div>
-  {%- endif -%}
 
   {%- if section.settings.closing_text != blank -%}
     <p class="ff-ow__closing">{{ section.settings.closing_text | escape }}</p>
@@ -304,6 +277,10 @@
   {%- if section.settings.cta_text != blank and section.settings.cta_link != blank -%}
     <div class="ff-ow__foot">
       <a href="{{ section.settings.cta_link }}" class="ff-ow__cta">{{ section.settings.cta_text | escape }}</a>
+    </div>
+  {%- elsif section.settings.cta_text != blank -%}
+    <div class="ff-ow__foot">
+      <a href="https://link.webvehicle.com/widget/form/qNgfulV3tUWZ70qJvAN6" class="ff-ow__cta">{{ section.settings.cta_text | escape }}</a>
     </div>
   {%- endif -%}
 
@@ -329,7 +306,6 @@
 <style>
   .ff-ow {
     --ff-ow-ink: #0B0B0B;
-    --ff-ow-bone: #F2EDE4;
     --ff-ow-soft: #2a2a2a;
     --ff-ow-muted: #6b6b6b;
     --ff-ow-gap: 10px;
@@ -339,7 +315,6 @@
     padding: 72px 20px 96px;
     font-family: inherit;
     color: var(--ff-ow-ink);
-    background: transparent;
   }
   .ff-ow__header { text-align: center; margin-bottom: 40px; max-width: 720px; margin-left: auto; margin-right: auto; }
   .ff-ow__eyebrow {
@@ -353,8 +328,6 @@
   .ff-ow__sub {
     font-size: 15px; color: var(--ff-ow-soft); max-width: 560px; margin: 0 auto; line-height: 1.65;
   }
-
-  /* stats */
   .ff-ow__stats {
     background: var(--ff-ow-ink); border-radius: var(--ff-ow-r); padding: 36px 24px;
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px;
@@ -365,8 +338,6 @@
     font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
     opacity: 0.65; display: block; margin-top: 10px; font-weight: 500;
   }
-
-  /* tiles */
   .ff-ow__tile {
     position: relative; display: block; width: 100%; height: 100%;
     background: #111; border-radius: var(--ff-ow-r); overflow: hidden;
@@ -391,7 +362,6 @@
   button.ff-ow__tile:focus-visible .ff-ow__cap { opacity: 1; transform: none; }
   .ff-ow__cap--always { opacity: 1; transform: none; }
 
-  /* ===== Desktop Layout A ===== */
   .ff-ow__desk { display: block; }
   .ff-ow__mobi { display: none; }
   .ff-ow__band { display: grid; gap: var(--ff-ow-gap); margin-bottom: var(--ff-ow-gap); }
@@ -419,19 +389,6 @@
     max-width: 920px; margin: 0 auto; aspect-ratio: 5 / 4; height: auto; width: 100%;
   }
 
-  /* archive */
-  .ff-ow__archive-eyebrow {
-    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--ff-ow-muted); font-weight: 600; text-align: center;
-    margin: 48px 0 16px;
-  }
-  .ff-ow__archive {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--ff-ow-gap);
-    margin-bottom: 40px;
-  }
-  .ff-ow__tile--square { aspect-ratio: 1 / 1; height: auto; }
-  .ff-ow__tile--wide { grid-column: span 2; aspect-ratio: 2 / 1; height: auto; }
-
   .ff-ow__closing {
     text-align: center; font-size: 15px; color: var(--ff-ow-soft);
     max-width: 520px; margin: 40px auto 24px; line-height: 1.65;
@@ -444,7 +401,6 @@
   }
   .ff-ow__cta:hover, .ff-ow__cta:focus { background: #93D500; color: var(--ff-ow-ink); }
 
-  /* lightbox */
   .ff-ow-lb {
     position: fixed; inset: 0; background: rgba(10,10,10,0.96); z-index: 9999;
     display: none; align-items: center; justify-content: center; padding: 40px 60px;
@@ -476,7 +432,6 @@
   .ff-ow-lb__nav--next { right: 24px; }
   body.ff-ow-lb-open { overflow: hidden; }
 
-  /* ===== Mobile Layout M ===== */
   @media (max-width: 900px) {
     .ff-ow { padding: 48px 0 64px; }
     .ff-ow__header { padding: 0 20px; margin-bottom: 28px; }
@@ -497,7 +452,6 @@
     }
     .ff-ow-m__pair .ff-ow__tile { aspect-ratio: 3 / 4; height: auto; border-radius: 4px; }
     .ff-ow-m__pair .ff-ow__cap { font-size: 8px; padding: 20px 8px 8px; }
-
     .ff-ow-m__rail-label {
       font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
       color: var(--ff-ow-muted); padding: 10px 18px 8px; margin: 0;
@@ -512,7 +466,6 @@
       flex: 0 0 78%; aspect-ratio: 5 / 4; height: auto;
       border-radius: 6px; scroll-snap-align: center;
     }
-
     .ff-ow-m__bleed .ff-ow__tile { border-radius: 0; aspect-ratio: 1 / 1; height: auto; }
     .ff-ow-m__stack .ff-ow__tile { border-radius: 0; aspect-ratio: 4 / 5; height: auto; margin-bottom: 8px; }
     .ff-ow-m__stack .ff-ow-m__inset { margin-bottom: 14px; }
@@ -520,17 +473,12 @@
     .ff-ow-m__close { padding: 8px 18px 0; }
     .ff-ow-m__close .ff-ow__tile { border-radius: 6px; aspect-ratio: 5 / 4; height: auto; }
 
-    /* captions always on for touch */
     .ff-ow__mobi .ff-ow__cap { opacity: 1; transform: none; }
     .ff-ow__mobi button.ff-ow__tile:hover img { transform: none; }
 
-    .ff-ow__archive { grid-template-columns: 1fr 1fr; padding: 0 12px; gap: 8px; }
-    .ff-ow__tile--wide { grid-column: 1 / -1; }
-    .ff-ow__archive-eyebrow { padding: 0 20px; }
     .ff-ow__closing { padding: 0 20px; margin-top: 32px; font-size: 14px; }
     .ff-ow__foot { padding: 0 20px; }
     .ff-ow__cta { width: 100%; max-width: 360px; text-align: center; }
-
     .ff-ow-lb { padding: 60px 12px 80px; }
     .ff-ow-lb__img { max-height: calc(100vh - 200px); }
     .ff-ow-lb__nav { width: 44px; height: 44px; }
@@ -558,7 +506,6 @@
   var btnPrev = lb.querySelector('.ff-ow-lb__nav--prev');
   var btnNext = lb.querySelector('.ff-ow-lb__nav--next');
 
-  // Dedupe desk/mobi clones by shot id
   var items = [];
   var indexById = {};
   Array.prototype.forEach.call(triggers, function(t) {
@@ -568,7 +515,6 @@
     items.push({
       id: id,
       full: t.getAttribute('data-full'),
-      srcset: t.getAttribute('data-full-srcset'),
       caption: t.getAttribute('data-caption') || '',
       alt: t.querySelector('img') ? t.querySelector('img').alt : ''
     });
@@ -581,8 +527,6 @@
     currentIndex = (index + items.length) % items.length;
     var item = items[currentIndex];
     lbImg.src = item.full;
-    if (item.srcset) lbImg.setAttribute('srcset', item.srcset);
-    else lbImg.removeAttribute('srcset');
     lbImg.alt = item.alt;
     lbCaption.textContent = item.caption;
     lbCounter.textContent = (currentIndex + 1) + ' / ' + items.length;
@@ -602,14 +546,12 @@
     lb.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('ff-ow-lb-open');
     lbImg.removeAttribute('src');
-    lbImg.removeAttribute('srcset');
     if (lastFocused && lastFocused.focus) lastFocused.focus();
   }
 
   Array.prototype.forEach.call(triggers, function(t) {
     t.addEventListener('click', function() {
-      var id = t.getAttribute('data-shot-id') || t.getAttribute('data-full');
-      openById(id);
+      openById(t.getAttribute('data-shot-id') || t.getAttribute('data-full'));
     });
   });
   btnClose.addEventListener('click', close);
@@ -653,14 +595,16 @@
       "label": "Subheading",
       "default": "Design examples up close — ink, type, and embroidery quality you can judge before you commit."
     },
-    { "type": "header", "content": "Archive (optional)" },
-    {
-      "type": "text",
-      "id": "archive_eyebrow",
-      "label": "Archive section label",
-      "default": "More from the archive",
-      "info": "Shown only if Product mockup or Lifestyle blocks exist."
-    },
+    { "type": "header", "content": "Stats bar" },
+    { "type": "checkbox", "id": "show_stats", "label": "Show stats bar", "default": true },
+    { "type": "text", "id": "stat_1_number", "label": "Stat 1 number", "default": "30,000+" },
+    { "type": "text", "id": "stat_1_label", "label": "Stat 1 label", "default": "Orders" },
+    { "type": "text", "id": "stat_2_number", "label": "Stat 2 number", "default": "1.8M" },
+    { "type": "text", "id": "stat_2_label", "label": "Stat 2 label", "default": "Shirts printed" },
+    { "type": "text", "id": "stat_3_number", "label": "Stat 3 number", "default": "5,000+" },
+    { "type": "text", "id": "stat_3_label", "label": "Stat 3 label", "default": "Gyms" },
+    { "type": "text", "id": "stat_4_number", "label": "Stat 4 number", "default": "50" },
+    { "type": "text", "id": "stat_4_label", "label": "Stat 4 label", "default": "States" },
     { "type": "header", "content": "Closing" },
     {
       "type": "textarea",
@@ -671,94 +615,8 @@
     { "type": "text", "id": "cta_text", "label": "Button text", "default": "Schedule a call" },
     { "type": "url", "id": "cta_link", "label": "Button link" }
   ],
-  "blocks": [
-    {
-      "type": "hero_shot",
-      "name": "Hero shot",
-      "settings": [
-        {
-          "type": "select",
-          "id": "role",
-          "label": "Layout role",
-          "info": "Controls desktop band + mobile placement. Use the install map for the 15-shot set.",
-          "default": "triptych",
-          "options": [
-            { "value": "open_feature", "label": "Open — large feature (1)" },
-            { "value": "open_stack", "label": "Open — stack (2)" },
-            { "value": "triptych", "label": "Portrait triptych (3)" },
-            { "value": "detail", "label": "Detail strip / mobile rail (3–4)" },
-            { "value": "color", "label": "Color pair (2)" },
-            { "value": "bento_feature", "label": "Bento — large feature (1)" },
-            { "value": "bento_stack", "label": "Bento — stack (2)" },
-            { "value": "close", "label": "Close craft (1)" }
-          ]
-        },
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image",
-          "info": "Upload ~1600–2200px long edge, WebP/JPEG ~150–400KB. Do not force square."
-        },
-        { "type": "text", "id": "alt", "label": "Alt text" },
-        { "type": "text", "id": "caption", "label": "Caption (optional)" }
-      ]
-    },
-    {
-      "type": "product_mockup",
-      "name": "Archive mockup (square)",
-      "settings": [
-        { "type": "image_picker", "id": "image", "label": "Square mockup" },
-        { "type": "text", "id": "alt", "label": "Alt text" },
-        { "type": "text", "id": "caption", "label": "Lightbox caption (optional)" }
-      ]
-    },
-    {
-      "type": "lifestyle_shot",
-      "name": "Archive lifestyle (wide)",
-      "settings": [
-        { "type": "image_picker", "id": "image", "label": "Wide photo" },
-        { "type": "text", "id": "alt", "label": "Alt text" },
-        { "type": "text", "id": "caption", "label": "Lightbox caption (optional)" }
-      ]
-    },
-    {
-      "type": "stats_strip",
-      "name": "Stats strip",
-      "limit": 1,
-      "settings": [
-        { "type": "text", "id": "stat_1_number", "label": "Stat 1 number", "default": "30,000+" },
-        { "type": "text", "id": "stat_1_label", "label": "Stat 1 label", "default": "Orders" },
-        { "type": "text", "id": "stat_2_number", "label": "Stat 2 number", "default": "1.8M" },
-        { "type": "text", "id": "stat_2_label", "label": "Stat 2 label", "default": "Shirts printed" },
-        { "type": "text", "id": "stat_3_number", "label": "Stat 3 number", "default": "5,000+" },
-        { "type": "text", "id": "stat_3_label", "label": "Stat 3 label", "default": "Gyms" },
-        { "type": "text", "id": "stat_4_number", "label": "Stat 4 number", "default": "50" },
-        { "type": "text", "id": "stat_4_label", "label": "Stat 4 label", "default": "States" }
-      ]
-    }
-  ],
-  "max_blocks": 60,
   "presets": [
-    {
-      "name": "Our Work Gallery",
-      "blocks": [
-        { "type": "hero_shot", "settings": { "role": "open_feature" } },
-        { "type": "hero_shot", "settings": { "role": "open_stack" } },
-        { "type": "hero_shot", "settings": { "role": "open_stack" } },
-        { "type": "hero_shot", "settings": { "role": "triptych" } },
-        { "type": "hero_shot", "settings": { "role": "triptych" } },
-        { "type": "hero_shot", "settings": { "role": "triptych" } },
-        { "type": "hero_shot", "settings": { "role": "detail" } },
-        { "type": "hero_shot", "settings": { "role": "detail" } },
-        { "type": "hero_shot", "settings": { "role": "detail" } },
-        { "type": "hero_shot", "settings": { "role": "color" } },
-        { "type": "hero_shot", "settings": { "role": "color" } },
-        { "type": "hero_shot", "settings": { "role": "bento_feature" } },
-        { "type": "hero_shot", "settings": { "role": "bento_stack" } },
-        { "type": "hero_shot", "settings": { "role": "bento_stack" } },
-        { "type": "hero_shot", "settings": { "role": "close" } }
-      ]
-    }
+    { "name": "Our Work Gallery" }
   ]
 }
 {% endschema %}
