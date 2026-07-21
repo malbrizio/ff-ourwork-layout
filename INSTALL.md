@@ -72,7 +72,7 @@ shopify theme push \
 |---|---|
 | Eyebrow | Custom gym apparel |
 | Title | Our Work |
-| Subheading | Real shirts from real gym drops — close enough to judge the print yourself. |
+| Subheading | Design examples up close — ink, type, and embroidery quality you can judge before you commit. |
 | Closing | Every drop is built around your gym. Free design. Members preorder. You don’t buy inventory. |
 | CTA | Schedule a call → GHL form URL |
 
@@ -106,7 +106,7 @@ Optional: **Stats strip** block (one) above the gallery.
 | Field | Value |
 |---|---|
 | Title | Our Work \| Custom Gym Apparel Portfolio – Forever Fierce |
-| Description | Real shirts from real gym drops — print, type, and embroidery close enough to judge. Custom gym apparel from 5,000+ gyms and 30,000+ orders. |
+| Description | Design examples up close — ink, type, and embroidery quality from Forever Fierce. Custom gym apparel for 5,000+ gyms and 30,000+ orders. |
 | OG image | Prefer shot 15 or 09 (not email header) |
 
 ### 5) QA checklist
